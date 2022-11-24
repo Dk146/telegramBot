@@ -1,0 +1,33 @@
+{
+    "textPayload": "2022-11-21T15:46:26.004+0700\tinfo\tcake-savings.retryhttp\tretryhttp/retryhttp.go:29\tperforming request\t{\"method\": \"GET\", \"url\": \"https://cakedigibank.mambu.com/api/clients/15045659515389920969?detailsLevel=FULL\"}",
+    "insertId": "wnl8wiueto2o7kiu",
+    "resource": {
+      "type": "k8s_container",
+      "labels": {
+        "location": "asia-southeast1",
+        "pod_name": "cake-savings-6d7979d765-sftbf",
+        "cluster_name": "cake-prod-1",
+        "project_id": "bef-cake-prod",
+        "container_name": "cake-savings",
+        "namespace_name": "default"
+      }
+    },
+    "timestamp": "2022-11-21T08:46:26.004965397Z",
+    "severity": "INFO",
+    "labels": {
+      "k8s-pod/pod-template-hash": "6d7979d765",
+      "k8s-pod/security_istio_io/tlsMode": "istio",
+      "k8s-pod/sidecar_istio_io/inject": "true",
+      "k8s-pod/release": "cake-savings",
+      "k8s-pod/ci": "manual",
+      "k8s-pod/service_istio_io/canonical-name": "cake-savings",
+      "k8s-pod/app": "cake-savings",
+      "k8s-pod/service_istio_io/canonical-revision": "1.0.298",
+      "k8s-pod/canary": "cake-savings",
+      "compute.googleapis.com/resource_name": "gke-cake-prod-1-cake-prod-1-pool-t2d--049be7c8-l6qv",
+      "k8s-pod/lang": "go",
+      "k8s-pod/version": "1.0.298"
+    },
+    "logName": "projects/bef-cake-prod/logs/stdout",
+    "receiveTimestamp": "2022-11-21T08:46:27.051482723Z"
+}
