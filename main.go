@@ -4,8 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"strconv"
@@ -21,10 +19,10 @@ func main() {
 	botToken := os.Getenv("BOT_TOKEN")
 	templatePath := os.Getenv("TEMPLATE")
 	pubsubProjectId := os.Getenv("PUBSUB_PROJECT_ID")
-	pubsubSubId := os.Getenv("PUBUB_SUB_ID")
+	pubsubSubId := os.Getenv("PUBSUB_SUB_ID")
 	chatId := os.Getenv("CHAT_ID")
 
-	f, err := ioutil.ReadFile(templatePath)
+	f, err := os.ReadFile(templatePath)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -41,15 +39,14 @@ func main() {
 	err = sub.Receive(ctx, func(ctx context.Context, m *pubsub.Message) {
 		t := template.Must(template.New("").Parse(string(f)))
 		in := []byte(string(m.Data))
-		fmt.Println(string(m.Data))
 
 		var raw map[string]interface{}
 		if err := json.Unmarshal(in, &raw); err != nil {
-			fmt.Println(err)
+			log.Println(err)
 		}
 		var tpl bytes.Buffer
 		if err := t.Execute(&tpl, raw); err != nil {
-			fmt.Println(err)
+			log.Println(err)
 		}
 
 		int_chat_id, _ := strconv.Atoi(chatId)
