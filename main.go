@@ -18,25 +18,25 @@ import (
 func main() {
 	ctx := context.Background()
 
-	bot_token := os.Getenv("BOT_TOKEN")
-	template_path := os.Getenv("TEMPLATE")
-	pubsub_project_id := os.Getenv("PUBSUB_PROJECT_ID")
-	pubsub_sub_id := os.Getenv("PUBUB_SUB_ID")
-	chat_id := os.Getenv("CHAT_ID")
+	botToken := os.Getenv("BOT_TOKEN")
+	templatePath := os.Getenv("TEMPLATE")
+	pubsubProjectId := os.Getenv("PUBSUB_PROJECT_ID")
+	pubsubSubId := os.Getenv("PUBUB_SUB_ID")
+	chatId := os.Getenv("CHAT_ID")
 
-	f, err := ioutil.ReadFile(template_path)
+	f, err := ioutil.ReadFile(templatePath)
 	if err != nil {
 		log.Panic(err)
 	}
-	bot, err := tgbotapi.NewBotAPI(bot_token)
+	bot, err := tgbotapi.NewBotAPI(botToken)
 	if err != nil {
 		log.Panic(err)
 	}
-	client, err := pubsub.NewClient(ctx, pubsub_project_id)
+	client, err := pubsub.NewClient(ctx, pubsubProjectId)
 	if err != nil {
 		log.Panic(err)
 	}
-	sub := client.Subscription(pubsub_sub_id)
+	sub := client.Subscription(pubsubSubId)
 
 	err = sub.Receive(ctx, func(ctx context.Context, m *pubsub.Message) {
 		t := template.Must(template.New("").Parse(string(f)))
@@ -52,7 +52,7 @@ func main() {
 			fmt.Println(err)
 		}
 
-		int_chat_id, _ := strconv.Atoi(chat_id)
+		int_chat_id, _ := strconv.Atoi(chatId)
 		msg := tgbotapi.NewMessage(int64(int_chat_id), tpl.String())
 		bot.Send(msg)
 		m.Ack()
